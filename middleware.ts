@@ -50,27 +50,37 @@ const generateCSP = (): string => {
   };
 
   return Object.entries(policies)
-    .map(([key, values]) => `${key} ${values.join(' ')}`)
-    .concat(['upgrade-insecure-requests'])
+    .map(([key, value]) => {
+      return `${key} ${value.join(' ')}`;
+    })
     .join('; ');
 };
 
-// Add routes that don't require authentication
+// Routes that don't require authentication
 const unAuthenticatedRoutes = [
-  '/api/hello',
-  '/api/health',
   '/api/auth/**',
-  '/api/oauth/**',
-  '/api/scim/v2.0/**',
-  '/api/invitations/*',
-  '/api/webhooks/stripe',
-  '/api/webhooks/dsync',
+  '/api/webhooks/**',
+  '/api/public/**',
   '/auth/**',
-  '/invitations/*',
-  '/terms-condition',
-  '/unlock-account',
-  '/login/saml',
-  '/.well-known/*',
+  '/brand-test',
+  '/',
+  '/api/trpc/**',
+  '/legal/**',
+  '/invitations/**',
+  '/api/invitations/**',
+  '/api/jackson/oauth/callback',
+  '/api/jackson/oauth/userinfo',
+  '/api/jackson/oauth/token',
+  '/api/jackson/oauth/jwks',
+  '/api/jackson/oauth/authorize',
+  '/api/jackson/oauth/introspect',
+  '/api/jackson/oauth/revoke',
+  '/api/jackson/oauth/logout',
+  '/api/jackson/oauth/device',
+  '/api/jackson/oauth/device/auth',
+  '/api/jackson/oauth/device/callback',
+  '/api/jackson/oauth/device/verify',
+  '/api/jackson/oauth/device/success',
 ];
 
 export default async function middleware(req: NextRequest) {

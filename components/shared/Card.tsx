@@ -1,38 +1,69 @@
 import React from 'react';
+import { cn } from '../../lib/utils';
 
-const Card = ({ children }: { children: React.ReactNode }) => {
+interface CardProps {
+  children: React.ReactNode;
+  variant?: 'default' | 'hover';
+  className?: string;
+}
+
+const Card = ({ 
+  children, 
+  variant = 'default',
+  className 
+}: CardProps) => {
   return (
-    <div className="card w-full border border-rounded dark:bg-black dark:border-gray-600">
+    <div className={cn(
+      variant === 'default' ? 'card-drake' : 'card-drake-hover',
+      'w-full',
+      className
+    )}>
       {children}
     </div>
   );
 };
 
-const Title = ({ children }: { children: React.ReactNode }) => {
+interface CardComponentProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Title = ({ children, className }: CardComponentProps) => {
   return (
-    <h2 className="card-title text-xl font-medium leading-none tracking-tight">
+    <h2 className={cn(
+      "card-title text-xl font-medium leading-none tracking-tight text-white",
+      className
+    )}>
       {children}
     </h2>
   );
 };
 
-const Description = ({ children }: { children: React.ReactNode }) => {
+const Description = ({ children, className }: CardComponentProps) => {
   return (
-    <div className="text-gray-600 dark:text-gray-400 text-sm">{children}</div>
+    <div className={cn(
+      "text-accent-metallic-light text-sm",
+      className
+    )}>
+      {children}
+    </div>
   );
 };
 
-const Header = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex gap-2 flex-col">{children}</div>;
+const Header = ({ children, className }: CardComponentProps) => {
+  return <div className={cn("flex gap-2 flex-col", className)}>{children}</div>;
 };
 
-const Body = ({ children }: { children: React.ReactNode }) => {
-  return <div className="card-body dark:bg-black gap-4 p-6">{children}</div>;
+const Body = ({ children, className }: CardComponentProps) => {
+  return <div className={cn("card-body gap-4 p-6", className)}>{children}</div>;
 };
 
-const Footer = ({ children }: { children: React.ReactNode }) => {
+const Footer = ({ children, className }: CardComponentProps) => {
   return (
-    <div className="card-actions justify-end dark:border-gray-600 p-2 border-t bg-gray-50 dark:bg-black">
+    <div className={cn(
+      "card-actions justify-end p-4 border-t border-accent-metallic-dark/10 bg-background-secondary/50",
+      className
+    )}>
       {children}
     </div>
   );

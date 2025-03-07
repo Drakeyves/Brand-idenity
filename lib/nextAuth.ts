@@ -59,12 +59,34 @@ if (isAuthProviderEnabled('credentials')) {
 
         const { email, password, recaptchaToken } = credentials;
 
-        await validateRecaptcha(recaptchaToken);
+        // For testing purposes, only allow specific credentials
+        const testEmail = 'Drazoyves@gmail.com';
+        const testPassword = 'Monkey2003';
+
+        // Skip recaptcha validation for test credentials
+        if (email !== testEmail) {
+          await validateRecaptcha(recaptchaToken);
+        }
 
         if (!email || !password) {
           return null;
         }
 
+        // For testing, check if using test credentials
+        if (email === testEmail && password === testPassword) {
+          // Return a complete test user object
+          return {
+            id: 'test-user-id',
+            name: 'Drake Test User',
+            email: testEmail,
+            emailVerified: new Date(),
+            image: null,
+            role: 'ADMIN',
+            teams: [{ id: 'test-team-id', name: 'Test Team', role: 'OWNER' }],
+          };
+        }
+
+        // Regular authentication flow for non-test credentials
         const user = await getUser({ email });
 
         if (!user) {

@@ -1,7 +1,7 @@
 import {
   ComputerDesktopIcon,
   MoonIcon,
-  SunIcon,
+  SparklesIcon,
 } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -13,7 +13,13 @@ const useTheme = () => {
   const { t } = useTranslation('common');
 
   useEffect(() => {
-    setTheme(localStorage.getItem('theme'));
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme || 'drake'); // Default to drake theme if none is set
+    
+    // Apply drake theme by default if no theme is set
+    if (!savedTheme) {
+      applyTheme('drake');
+    }
   }, []);
 
   const themes: ThemesProps[] = [
@@ -23,32 +29,27 @@ const useTheme = () => {
       icon: ComputerDesktopIcon,
     },
     {
+      id: 'drake',
+      name: t('drake') || 'Drake', // Fallback if translation is missing
+      icon: SparklesIcon,
+    },
+    {
       id: 'dark',
       name: t('dark'),
       icon: MoonIcon,
     },
-    {
-      id: 'light',
-      name: t('light'),
-      icon: SunIcon,
-    },
   ];
 
-  const selectedTheme = themes.find((t) => t.id === theme) || themes[0];
+  const selectedTheme = themes.find((t) => t.id === theme) || themes[1]; // Default to drake theme
 
   const toggleTheme = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    selectedTheme.id === 'light' ? applyTheme('dark') : applyTheme('light');
-
-    if (selectedTheme.id === 'light') {
+    // Toggle between drake and dark themes only
+    if (selectedTheme.id === 'drake') {
       applyTheme('dark');
       setTheme('dark');
-    } else if (selectedTheme.id === 'dark') {
-      applyTheme('light');
-      setTheme('light');
-    } else if (selectedTheme.id === 'system') {
-      applyTheme('dark');
-      setTheme('dark');
+    } else {
+      applyTheme('drake');
+      setTheme('drake');
     }
   };
 

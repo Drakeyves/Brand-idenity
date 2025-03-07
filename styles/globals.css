@@ -4,6 +4,20 @@
 
 :root {
   color-scheme: dark light;
+  --background: #0d0d14;
+  --background-secondary: #141421;
+  --accent-purple: #7a6fe3;
+  --accent-purple-light: #9f7aea;
+  --accent-purple-dark: #553c9a;
+  --accent-teal: #25b592;
+  --accent-teal-light: #2ed6a7;
+  --accent-teal-dark: #1c8870;
+  --accent-gold: #f5a623;
+  --accent-gold-light: #f7b731;
+  --accent-gold-dark: #d48806;
+  --accent-metallic: #a1a1b5;
+  --accent-metallic-light: #c5c5d3;
+  --accent-metallic-dark: #71718a;
 }
 
 html,
@@ -60,6 +74,40 @@ a {
   .btn-error:focus-visible {
     @apply outline-error;
   }
+  
+  /* Drake brand component styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-accent-purple to-accent-purple-dark text-white
+           hover:from-accent-purple-dark hover:to-accent-purple
+           shadow-lg shadow-accent-purple/20;
+  }
+  
+  .btn-secondary {
+    @apply bg-gradient-to-r from-accent-teal to-accent-teal-dark text-white
+           hover:from-accent-teal-dark hover:to-accent-teal
+           shadow-lg shadow-accent-teal/20;
+  }
+  
+  .btn-accent {
+    @apply bg-gradient-to-r from-accent-gold to-accent-gold-dark text-white
+           hover:from-accent-gold-dark hover:to-accent-gold
+           shadow-lg shadow-accent-gold/20;
+  }
+  
+  .card-drake {
+    @apply bg-gradient-to-br from-background-secondary/95 to-background/95
+           backdrop-blur-md border border-accent-metallic-dark/10
+           rounded-lg p-6 shadow-lg shadow-accent-purple/5;
+  }
+  
+  .card-drake-hover {
+    @apply card-drake hover:-translate-y-1 transition-all duration-300;
+  }
+  
+  .badge-drake {
+    @apply bg-accent-purple/10 text-accent-purple-light px-2 py-1 rounded-md
+           text-xs font-medium;
+  }
 }
 
 .btn-md {
@@ -68,7 +116,7 @@ a {
 
 .scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #555555 #f0f0f0;
+  scrollbar-color: var(--accent-metallic-dark) var(--background-secondary);
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -76,11 +124,11 @@ a {
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background-color: #555555;
+  background-color: var(--accent-metallic-dark);
 }
 
 .scrollbar::-webkit-scrollbar-track {
-  background-color: #f0f0f0;
+  background-color: var(--background-secondary);
 }
 
 .scrollbar::-webkit-scrollbar-button {
